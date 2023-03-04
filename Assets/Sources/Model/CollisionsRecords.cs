@@ -42,7 +42,16 @@ namespace Asteroids.Model
 
             yield return IfCollided((Ship ship, Enemy enemy) =>
             {
-                GameEnd?.Invoke();
+                ship.MinusLives();
+                if (ship.GetLives() <= 0)
+                {
+                    GameEnd?.Invoke();
+                } else
+                {
+                    _enemies.StopAll(enemy);
+                }
+                
+
             });
         }
 
